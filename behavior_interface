@@ -1,0 +1,41 @@
+//managed;
+// with draft;
+managed implementation in class zbp_i_uxteam_5551 unique;
+# rest
+define behavior for ZI_UXTEAM_55551 alias UXTeam
+implementation in class zbp_i_uxteam_5551 unique
+persistent table zrap_uxteam_5551
+// draft table zdr_uxteam_5551
+lock master // total etag LastChangedAt
+etag master LocalLastChangedAt
+{
+  create;
+  update;
+  delete;
+//basically the line 16 said, "hey system, takecare with this field "ID"
+//The fild is a number, the standard control "managed" the field "readonly" = dont change, dont modify.
+  field ( numbering : managed, readonly ) Id;
+//only read these fields, dont change
+  field ( readonly ) Active, Salary;
+  field ( readonly ) LastChangedAt, LocalLastChangedAt;
+//setActive is a method implmented
+  action ( features : instance ) setActive result [1] $self;
+//if the changeSalary is dave, change the Role
+  determination changeSalary on save { field Role; }
+//validate the field AGE is >=21 when "create", WHEN CLICK "SAVE"
+  validation validateAge on save { field Age; create; }
+
+//because we are using CRUD, and this important to mapp the field.
+  mapping for zrap_uxteam_5551
+  {
+    Id = id;
+    FirstName = firstName;
+    LastName = lastName;
+    Age = age;
+    Role = role;
+    Salary = salary;
+    Active = active;
+    LastChangedAt = last_changed_at;
+    LocalLastChangedAt = local_last_changed_at;
+  }
+}

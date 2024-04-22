@@ -1,0 +1,6 @@
+# rest
+
+@EndUserText.label: 'Service definition for UXTeam'
+define service ZUI_UXTEAM_5555 {
+  expose ZC_UXTEAM_55511 as UXTeam;
+}
